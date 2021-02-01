@@ -31,30 +31,35 @@ class TestState(unittest.TestCase):
                                )
 
     def test_get_single_qubit_unitary(self):
+        # target qubit too high
         self.assertRaises(IndexError,
                           get_single_qubit_unitary,
                           1,
                           gate_x(),
                           1
                           )
+        # target qubit too high
         self.assertRaises(IndexError,
                           get_single_qubit_unitary,
                           5,
                           np.identity(2),
                           7
                           )
+        # matrix not 2x2
         self.assertRaises(TypeError,
                           get_single_qubit_unitary,
                           1,
                           np.identity(3),
                           0
                           )
+        # matrix not unitary
         self.assertRaises(ValueError,
                           get_single_qubit_unitary,
                           1,
                           2 * np.identity(2),
                           0
                           )
+        # matrix not unitary
         self.assertRaises(ValueError,
                           get_single_qubit_unitary,
                           1,
@@ -89,18 +94,21 @@ class TestState(unittest.TestCase):
                                )
 
     def test_get_cx_unitary(self):
+        # target qubit too high
         self.assertRaises(IndexError,
                           get_cnot_unitary,
                           2,
                           0,
                           2
                           )
+        # control qubit too high
         self.assertRaises(IndexError,
                           get_cnot_unitary,
                           7,
                           8,
                           3
                           )
+        # control qubit and target qubit coincide
         self.assertRaises(IndexError,
                           get_cnot_unitary,
                           2,

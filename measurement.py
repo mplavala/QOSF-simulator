@@ -3,7 +3,7 @@ import numpy as np
 import random
 
 
-def get_measurement_outcome(state: np.ndarray) -> int:
+def get_measurement_outcome(state: np.ndarray) -> str:
     """Return random outcome of measurement in computational basis."""
     if len(np.shape(state)) != 1:
         raise TypeError("State vector must be shape (n,).")
@@ -14,11 +14,19 @@ def get_measurement_outcome(state: np.ndarray) -> int:
     if not np.allclose(np.inner(state.conjugate(), state), 1.):
         raise ValueError("State vector must be normalized.")
 
+    # output probability distribution
     prob = np.real(np.multiply(state.conjugate(), state))
-    n = np.shape(state)[0]
-    outcomes = tuple(range(n))
+    # dimension of the Hilbert space
+    dim = np.shape(state)[0]
+    # number of qubits
+    n = int(np.modf(np.log2(dim))[1])
+    # tuple of all possible outcomes
+    outcomes = tuple(range(dim))
 
-    return random.choices(outcomes, prob)[0]
+    # random package used to sample the outcome of the measurement
+    result = random.choices(outcomes, prob)[0]
+
+    return bin(result)[2:].zfill(n)
 
 
 if __name__ == '__main__':
