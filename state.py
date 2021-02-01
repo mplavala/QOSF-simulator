@@ -5,8 +5,8 @@ import numpy as np
 def get_initial_state(num_qubits: int) -> np.array:
     """Return vector of size 2**num_qubits with all zeroes except first element which is 1."""
 
-    state = np.zeros((2**num_qubits, 1))
-    state[0] = 1
+    state = np.zeros((2**num_qubits))
+    state[0] = 1.
 
     return state
 

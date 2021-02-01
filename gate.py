@@ -87,5 +87,5 @@ if __name__ == '__main__':
     c = 1
     t = 0
 
-    # print(get_single_qubit_unitary(n, gate_y(), t))
+    print(get_single_qubit_unitary(n, gate_y(), t))
     print(get_cnot_unitary(n, c, t))
